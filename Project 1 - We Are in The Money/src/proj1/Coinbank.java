@@ -1,10 +1,13 @@
 package proj1;  // Don't change the package name.  Gradescope expects this.
 
 /**
- * FILL THIS IN FOR EVERY PROJECT.  Include a class description, name, and date (for version) 
- * @author
- * @version
+ * Models a plastic roll-a-coin bank from the 1980s. Bank holds pennies, nickles, dimes and quarters.
+ * Refactored version of original/Coinbank which is more readable, reusable and robust.
  *
+ * @author Neil Datearo
+ * @version 9/22/24
+ * @Note I affirm that I have carried out the attached academic endeavors with full academic honesty, in
+ * accordance with the Union College Honor Code and the course syllabus.
  */
 public class Coinbank {
 	
@@ -22,14 +25,20 @@ public class Coinbank {
 	
 	// how many types of coins does the bank hold?
 	private final int COINTYPES = 4;
-	
+
+	// how many coins should be in the starting bank?
+	private final int INITIALCOINCOUNT = 0;
 	private int[] holder;
 	
 	/**
 	 * Default constructor
 	 */
 	public Coinbank() {
-		// Erase and fill me in!
+		holder = new int[COINTYPES];
+		holder[PENNY] = INITIALCOINCOUNT;
+		holder[NICKEL] = INITIALCOINCOUNT;
+		holder[DIME] = INITIALCOINCOUNT;
+		holder[QUARTER] = INITIALCOINCOUNT;
 
 	}
 	
@@ -38,18 +47,58 @@ public class Coinbank {
 	 * @param coinType denomination of coin to get. Valid denominations are 1,5,10,25
 	 * @return number of coins that bank is holding of that type, or -1 if denomination not valid
 	 */
-	public int get(int coinType){
-		return -1;  // erase this line
+	public int get(int coinType) {
+		int coinTypeIndex = getCoinIndex(coinType);
+
+		if (isValidCoinIndex(coinTypeIndex)) { return holder[coinTypeIndex]; }
+		else{ return coinTypeIndex; }
 	}
-	
+
 	/**
 	 * setter
 	 * @param coinType denomination of coin to set
 	 * @param numCoins number of coins
 	 */
 	private void set(int coinType, int numCoins) {
-		// Erase and fill me in!
+		int coinTypeIndex = getCoinIndex(coinType);
 
+		if (isValidCoinIndex(coinTypeIndex)) { holder[coinTypeIndex] = numCoins; }
+
+	}
+
+	/**
+	 * Private method to get coin index in holder. Reusable logic for getter and setters.
+	 * @param coinType
+	 * @return coinType index. If -1, it is an invalid denomination.
+	 */
+	private int getCoinIndex(int coinType) {
+		if (isBankable(coinType)) {
+			switch (coinType) {
+				case PENNY_VALUE:
+					return PENNY;
+				case NICKEL_VALUE:
+					return NICKEL;
+				case DIME_VALUE:
+					return DIME;
+				case QUARTER_VALUE:
+					return QUARTER;
+				default:
+					return -1; //in event that denomination is invalid
+			}
+		}
+		else{
+				return -1;
+			}
+
+	}
+
+	/**
+	 * Private helper method to check if a coin index is valid. Makes code more readable
+	 * @param coinIndex Index to check coin in holder.
+	 * @return True if valid index and false if not.
+	 */
+	private boolean isValidCoinIndex(int coinIndex) {
+		return coinIndex != -1;
 	}
 	
 	/**
@@ -95,7 +144,17 @@ public class Coinbank {
 	 * @return number of coins that are actually removed
 	 */
 	public int remove(int coinType, int requestedCoins) {
-		return -1; // Erase this line and fill me in!
+		int coinTypeIndex = getCoinIndex(coinType);
+		if (isValidCoinIndex(coinTypeIndex) && requestedCoins > 0) {
+			int coinsWeHave = get(coinType);
+			int coinsLeft = numLeft(requestedCoins, coinsWeHave);
+			int coinsRemoved = coinsWeHave - coinsLeft;
+			set(coinType, coinsLeft); //update coin holder
+			return coinsRemoved;
+		}
+
+		return 0; //If invalid coin type, no coins will be removed.
+
 	}
 	
 
@@ -117,9 +176,12 @@ public class Coinbank {
 		double total = (get(PENNY_VALUE) * PENNY_VALUE +
 				get(NICKEL_VALUE) * NICKEL_VALUE + 
 				get(DIME_VALUE) * DIME_VALUE +
-				get(QUARTER_VALUE) * QUARTER_VALUE) / 100.0;
-				
-		String toReturn = "The bank currently holds $" + total + " consisting of \n";
+				get(QUARTER_VALUE) * QUARTER_VALUE) / 100.00;
+
+		String formattedTotal = String.format("%.2f", total);
+
+
+		String toReturn = "The bank currently holds $" + formattedTotal + " consisting of \n";
 		toReturn+=get(PENNY_VALUE) + " pennies\n";
 		toReturn+=get(NICKEL_VALUE) + " nickels\n";
 		toReturn+=get(DIME_VALUE) + " dimes\n";

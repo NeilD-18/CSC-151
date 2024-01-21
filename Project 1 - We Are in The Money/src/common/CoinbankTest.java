@@ -89,4 +89,53 @@ public class CoinbankTest {
 		Coinbank c = makeBank(4,1,3,5);
 		assertEquals(0,c.remove(3,1));
 	}
+
+	@Test //Testing valid cointype but an attempt to remove a negative number of coins is invalid.
+	public void testRemove_negativeCoinWithdrawal()
+	{
+		Coinbank c = makeBank(4,1,3,5);
+		assertEquals(0, c.remove(25, -4) );
+	}
+
+	@Test //get should return -1 for invalid coin types
+	public void testGet_InvalidCoinType() {
+		Coinbank c = makeBank(10,12,4,2);
+
+		assertEquals(-1, c.get(2));  // Invalid coin type
+	}
+
+	@Test //insert should return false and not change bank contents for invalid coin types
+	public void testInsert_InvalidCoinType() {
+		Coinbank c = makeBank(10,12,4,2);
+
+		assertFalse(c.insert(2)); // Invalid coin type
+		String expected = "The bank currently holds $1.60 consisting of \n10 pennies\n12 nickels\n4 dimes\n2 quarters\n";
+		assertEquals(expected,c.toString()); //Should not change anything in bank
+	}
+	@Test //insert should return true and update penny count by 1
+	public void testInsert_Penny() {
+		Coinbank c = makeBank(10,12,4,2);
+
+		assertTrue(c.insert(1)); // valid coin type
+		String expected = "The bank currently holds $1.61 consisting of \n11 pennies\n12 nickels\n4 dimes\n2 quarters\n";
+		assertEquals(expected,c.toString()); //Should update the bank
+	}
+	@Test //insert should return true and update dime count by 1
+	public void testInsert_Dime() {
+		Coinbank c = makeBank(10,12,4,2);
+
+		assertTrue(c.insert(10)); // valid coin type
+		String expected = "The bank currently holds $1.70 consisting of \n10 pennies\n12 nickels\n5 dimes\n2 quarters\n";
+		assertEquals(expected,c.toString()); //Should update the bank
+	}
+	@Test //insert should return true and update quarter count by 1
+	public void testInsert_Quarter() {
+		Coinbank c = makeBank(10,12,4,2);
+
+		assertTrue(c.insert(25)); // valid coin type
+		String expected = "The bank currently holds $1.85 consisting of \n10 pennies\n12 nickels\n4 dimes\n3 quarters\n";
+		assertEquals(expected,c.toString()); //Should update the bank
+	}
+
+
 }
