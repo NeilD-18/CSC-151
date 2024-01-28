@@ -99,9 +99,7 @@ public class Sequence
             currentIndex = 0; //added element becomes current element
         }
 
-
-
-
+        
     }
     
     
