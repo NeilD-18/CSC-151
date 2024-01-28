@@ -1,17 +1,50 @@
 package proj2;
 /**
- *  I'd fill this in if I were you.
+ *  Class modeling a Sequence Abstract Data Type (ADT)
+ *
+ *
+ * @author Neil Daterao
+ * @version 01/28/24
+ * @Note I affirm that I have carried out the attached academic endeavors with full academic honesty, in
+ * accordance with the Union College Honor Code and the course syllabus.
+ *
+ *
+ * Invariant:
+ * 1. Number of elements in the sequence is stored in the instance variable manyItems
+ * 2. For an empty sequence, we don't care what is stored in data. For a nonempty sequence, the elements of the sequence
+ *    are stored from the front to the end in data[0] to data[manyItems-1], we don't care what's stroed in the rest of
+ *    data
+ * 3. If there is a current element, then it lies in data[currentIndex]; if there is no current element, then
+ *    currentIndex equals manyItems.
  */
+
+
 public class Sequence
 {
+    private String[] data;
+    private int manyItems;
+    private int currentIndex;
+
+
+
+    //Constants to avoid magic numbers
+    private final int DEFAULTCAPACITY = 10;
+    private final int INITIALAMOUNTOFITEMS = 0;
+
+
+
+
+
     /**
      * Creates a new sequence with initial capacity 10.
      */
     public Sequence() {
-    	// REMOVE THIS:
-    	//
-    	// capacity is reflected in the length of the 
-    	// internal array
+        try { data = new String[DEFAULTCAPACITY]; }
+        catch (OutOfMemoryError memoryError){
+            throw new OutOfMemoryError("Indicates insufficient memory for new Sequence");
+        }
+        manyItems = INITIALAMOUNTOFITEMS;
+        currentIndex = manyItems;
     }
     
 
@@ -21,10 +54,17 @@ public class Sequence
      * @param initialCapacity the initial capacity of the sequence.
      */
     public Sequence(int initialCapacity){
-    	// REMOVE THIS:
-    	//
-    	// capacity is reflected in the length of the 
-    	// internal array
+    	if (initialCapacity < 0) {
+            throw new IllegalArgumentException("initialCapacity is negative: " + initialCapacity);
+        }
+        try { data = new String[initialCapacity]; }
+        catch (OutOfMemoryError memoryError){
+            throw new OutOfMemoryError("Indicates insufficient memory for new Sequence");
+        }
+        manyItems = INITIALAMOUNTOFITEMS;
+        currentIndex = manyItems;
+
+
     }
     
 
@@ -42,6 +82,26 @@ public class Sequence
      */
     public void addBefore(String value)
     {
+        if (getCapacity() <= size()) { ensureCapacity(2*getCapacity() + 1); }
+        if (isCurrent()) {
+            for (int index = manyItems; index > currentIndex; index--) {
+                data[index] = data[index-1];
+            }
+            data[currentIndex] = value;
+            manyItems++;
+        }
+        else {
+            for (int index = manyItems; index > 0; index--) {
+                data[index] = data[index-1];
+            }
+            data[0] = value; //added to beginning of sequence
+            manyItems++;
+            currentIndex = 0; //added element becomes current element
+        }
+
+
+
+
     }
     
     
@@ -59,6 +119,25 @@ public class Sequence
      */
     public void addAfter(String value)
     {
+        if (getCapacity() <= size()) { ensureCapacity(2*getCapacity() + 1); }
+        if (isCurrent()) {
+            int indexAfterCurrent = currentIndex + 1;
+            for (int index = manyItems; index > indexAfterCurrent; index--) {
+                data[index] = data[index-1];
+            }
+            data[indexAfterCurrent] = value;
+            manyItems++;
+            advance(); //added element becomes the current element
+        }
+        else {
+            for (int index = manyItems; index > 0; index--) {
+                data[index] = data[index-1];
+            }
+            data[0] = value; //added to beginning of sequence
+            manyItems++;
+            currentIndex = 0; //added element becomes current element
+        }
+
     }
 
     
@@ -67,6 +146,7 @@ public class Sequence
      */
     public boolean isCurrent()
     {
+
     }
     
     
@@ -75,6 +155,7 @@ public class Sequence
      */
     public int getCapacity()
     {
+        return data.length;
     }
 
     
@@ -84,6 +165,7 @@ public class Sequence
      */
     public String getCurrent()
     {
+        return data[currentIndex];
     }
     
     
@@ -97,6 +179,14 @@ public class Sequence
      */
     public void ensureCapacity(int minCapacity)
     {
+        if (getCapacity() < minCapacity) {
+            String[] newArray = new String[minCapacity];
+            for (int index = 0; index < size(); index++) {
+                newArray[index] = data[index];
+            }
+            data = newArray;
+        }
+
     }
 
     
@@ -117,6 +207,7 @@ public class Sequence
      */
     public void addAll(Sequence another)
     {
+
     }
 
     
@@ -146,6 +237,7 @@ public class Sequence
      */
     public Sequence clone()
     {
+        return new Sequence();
     }
    
     
@@ -159,6 +251,7 @@ public class Sequence
      */
     public void removeCurrent()
     {
+
     }
 
     
@@ -167,6 +260,7 @@ public class Sequence
      */
     public int size()
     {
+        return manyItems;
     }
 
     
@@ -205,6 +299,7 @@ public class Sequence
      */
     public String toString() 
     {
+        return "";
     }
     
     /**
@@ -223,6 +318,7 @@ public class Sequence
      */
     public boolean equals(Sequence other) 
     {
+        return true;
     }
     
     
@@ -232,6 +328,7 @@ public class Sequence
      */
     public boolean isEmpty()
     {
+        return ( manyItems == 0 );
     }
     
     
