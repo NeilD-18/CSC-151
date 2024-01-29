@@ -1,21 +1,20 @@
 package proj2;
 /**
- *  Class modeling a Sequence Abstract Data Type (ADT)
- *
- *
- * @author Neil Daterao
- * @version 01/28/24
- * @Note I affirm that I have carried out the attached academic endeavors with full academic honesty, in
- * accordance with the Union College Honor Code and the course syllabus.
- *
+ * Class modeling a Sequence Abstract Data Type (ADT)
  *
  * Invariant:
  * 1. Number of elements in the sequence is stored in the instance variable manyItems
  * 2. For an empty sequence, we don't care what is stored in data. For a nonempty sequence, the elements of the sequence
- *    are stored from the front to the end in data[0] to data[manyItems-1], we don't care what's stroed in the rest of
+ *    are stored from the front to the end in data[0] to data[manyItems-1], we don't care what's stored in the rest of
  *    data
  * 3. If there is a current element, then it lies in data[currentIndex]; if there is no current element, then
  *    currentIndex equals manyItems.
+ *
+ * @author Neil Daterao
+ * @version 01/29/24
+ * @Note I affirm that I have carried out the attached academic endeavors with full academic honesty, in
+ * accordance with the Union College Honor Code and the course syllabus.
+ *
  */
 
 
@@ -31,10 +30,6 @@ public class Sequence
     private final int DEFAULTCAPACITY = 10;
     private final int INITIALAMOUNTOFITEMS = 0;
 
-
-
-
-
     /**
      * Creates a new sequence with initial capacity 10.
      */
@@ -44,7 +39,7 @@ public class Sequence
             throw new OutOfMemoryError("Indicates insufficient memory for new Sequence");
         }
         manyItems = INITIALAMOUNTOFITEMS;
-        currentIndex = manyItems;
+        noCurrentElement();
     }
     
 
@@ -55,14 +50,14 @@ public class Sequence
      */
     public Sequence(int initialCapacity){
     	if (initialCapacity < 0) {
-            throw new IllegalArgumentException("initialCapacity is negative: " + initialCapacity);
+            initialCapacity = DEFAULTCAPACITY; //in the event of a negative input
         }
         try { data = new String[initialCapacity]; }
         catch (OutOfMemoryError memoryError){
             throw new OutOfMemoryError("Indicates insufficient memory for new Sequence");
         }
         manyItems = INITIALAMOUNTOFITEMS;
-        currentIndex = manyItems;
+        noCurrentElement();
 
 
     }
@@ -84,22 +79,19 @@ public class Sequence
     {
         if (getCapacity() <= size()) { ensureCapacity(2*getCapacity() + 1); }
         if (isCurrent()) {
-            for (int index = manyItems; index > currentIndex; index--) {
-                data[index] = data[index-1];
-            }
-            data[currentIndex] = value;
-            manyItems++;
+            shiftRightFromIndex(getCurrentIndex());
+            data[getCurrentIndex()] = value;
+            increaseItemCount();
         }
         else {
-            for (int index = manyItems; index > 0; index--) {
-                data[index] = data[index-1];
-            }
-            data[0] = value; //added to beginning of sequence
-            manyItems++;
-            currentIndex = 0; //added element becomes current element
+            int startingIndex = 0;
+            shiftRightFromIndex(startingIndex);
+            data[startingIndex] = value; //added to beginning of sequence
+            increaseItemCount();
+            setCurrentIndex(startingIndex); //added element becomes current element
         }
 
-        
+
     }
     
     
@@ -119,23 +111,30 @@ public class Sequence
     {
         if (getCapacity() <= size()) { ensureCapacity(2*getCapacity() + 1); }
         if (isCurrent()) {
-            int indexAfterCurrent = currentIndex + 1;
-            for (int index = manyItems; index > indexAfterCurrent; index--) {
-                data[index] = data[index-1];
-            }
+            int indexAfterCurrent = getCurrentIndex() + 1;
+            shiftRightFromIndex(indexAfterCurrent);
             data[indexAfterCurrent] = value;
-            manyItems++;
+            increaseItemCount();
             advance(); //added element becomes the current element
         }
         else {
-            for (int index = manyItems; index > 0; index--) {
-                data[index] = data[index-1];
-            }
-            data[0] = value; //added to beginning of sequence
-            manyItems++;
-            currentIndex = 0; //added element becomes current element
+            int endOfSequenceIndex = size(); // Sequence contents is from data[0] to data[manyItems-1], next available is data[manyItems].
+            data[endOfSequenceIndex] = value;
+            increaseItemCount();
+            setCurrentIndex(endOfSequenceIndex); //added element becomes current element.
+
         }
 
+    }
+
+    /**
+     * Private helper method to shift elements in sequence right from a given index
+     * @param indexToShiftFrom
+     */
+    private void shiftRightFromIndex(int indexToShiftFrom) {
+        for (int index = size(); index > indexToShiftFrom; index--) {
+            data[index] = data[index - 1];
+        }
     }
 
     
@@ -144,7 +143,7 @@ public class Sequence
      */
     public boolean isCurrent()
     {
-
+        return (getCurrentIndex()< size());
     }
     
     
@@ -163,7 +162,8 @@ public class Sequence
      */
     public String getCurrent()
     {
-        return data[currentIndex];
+        if (isCurrent()) { return data[getCurrentIndex()]; }
+        else { return null; }
     }
     
     
@@ -179,9 +179,7 @@ public class Sequence
     {
         if (getCapacity() < minCapacity) {
             String[] newArray = new String[minCapacity];
-            for (int index = 0; index < size(); index++) {
-                newArray[index] = data[index];
-            }
+            duplicateElementsToNewArray(newArray);
             data = newArray;
         }
 
@@ -205,10 +203,24 @@ public class Sequence
      */
     public void addAll(Sequence another)
     {
+        ensureCapacity(size() + another.size());
+        Sequence clonedAnother = another.clone();
+
+        int currentIndexHolder = getCurrentIndex();
+        boolean noCurrentBeforeAddAll = false;
+        if (!isCurrent())  { noCurrentBeforeAddAll = true; }
+        setCurrentIndex(size()-1);
+
+        clonedAnother.start();
+        for (int count = 0; count < clonedAnother.size(); count++) {
+            addAfter(clonedAnother.getCurrent());
+            clonedAnother.advance();
+        }
+        if (noCurrentBeforeAddAll) { noCurrentElement(); } //reset current index to prior to method call
+        else { setCurrentIndex(currentIndexHolder); } //reset current index to prior to method call
 
     }
 
-    
     /**
      * Move forward in the sequence so that the current element is now
      * the next element in the sequence.
@@ -220,6 +232,12 @@ public class Sequence
      */
     public void advance()
     {
+        if (isCurrent()) {
+            //we know based on invariant that last element is data[manyItems-1]
+            //thus size()-2 ensures we don't pass the last element
+            if (getCurrentIndex() < size() - 1 ) { currentIndex++; }
+            else { noCurrentElement(); } //if no current element, currentIndex = manyItems, based on invariant.
+        }
     }
 
     
@@ -235,7 +253,24 @@ public class Sequence
      */
     public Sequence clone()
     {
-        return new Sequence();
+        try {
+            Sequence clonedSequence = new Sequence(getCapacity());
+            //add all elements from sequence to cloned sequence
+            for (int index = 0; index < size(); index++) {
+                clonedSequence.addAfter(data[index]);
+            }
+
+            //set currentIndex's equal to each other.
+            clonedSequence.start();
+            for (int count = 0; count < getCurrentIndex(); count++) { clonedSequence.advance(); }
+
+            return clonedSequence;
+
+        }
+        catch (OutOfMemoryError memoryError){
+            throw new OutOfMemoryError("Indicates insufficient memory for Cloned Sequence");
+        }
+
     }
    
     
@@ -249,6 +284,16 @@ public class Sequence
      */
     public void removeCurrent()
     {
+        if (isCurrent()) {
+            String[] newArray = new String[getCapacity()];
+            int newArrayIndex = 0;
+            for (int index = 0; index < size(); index++) {
+                if (index != getCurrentIndex()) { newArray[newArrayIndex++] = data[index]; }
+            }
+            decreaseItemCount();
+            data = newArray;
+
+        }
 
     }
 
@@ -268,6 +313,8 @@ public class Sequence
      */
     public void start()
     {
+        if (!isEmpty()) { setCurrentIndex(0); }
+        else { noCurrentElement(); }
     }
 
     
@@ -277,6 +324,15 @@ public class Sequence
      */
     public void trimToSize()
     {
+        try {
+            String[] newArray = new String[size()];
+            duplicateElementsToNewArray(newArray);
+            data = newArray;
+        }
+        catch (OutOfMemoryError memoryError){
+            throw new OutOfMemoryError("Indicates insufficient memory for trim");
+        }
+
     }
     
     
@@ -297,7 +353,28 @@ public class Sequence
      */
     public String toString() 
     {
-        return "";
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{");
+
+        for (int index = 0; index < size(); index++) {
+            // Add the current element with a ">" if it matches the current index
+            if (index == getCurrentIndex()) {
+                sb.append(">").append(data[index]);
+            } else {
+                sb.append(data[index]);
+            }
+
+            // Add a comma if it's not the last element
+            if (index < size() - 1) {
+                sb.append(", ");
+            }
+        }
+
+        sb.append("} (capacity = ").append(getCapacity()).append(")");
+
+        return sb.toString();
+
     }
     
     /**
@@ -316,7 +393,24 @@ public class Sequence
      */
     public boolean equals(Sequence other) 
     {
-        return true;
+        if (this == other) { return true; } //see if objects are the same
+        if (other == null) { return false; }
+
+        //see if size and currentIndex are equal before running through each sequence
+        if (size() == other.size() && getCurrentIndex() == other.getCurrentIndex() ) {
+            Sequence clonedOther = other.clone();
+            clonedOther.start();
+
+            for (int index = 0; index < size(); index++) {
+
+                if (!data[index].equals(clonedOther.getCurrent())) { return false; }
+                else { clonedOther.advance(); }
+            }
+            return true;
+
+        }
+
+        else { return false; }
     }
     
     
@@ -326,7 +420,7 @@ public class Sequence
      */
     public boolean isEmpty()
     {
-        return ( manyItems == 0 );
+        return ( size() == 0 );
     }
     
     
@@ -335,6 +429,65 @@ public class Sequence
      */
     public void clear()
     {
+        String[] emptyArray = new String[getCapacity()];
+        data = emptyArray;
+        clearItemCount();
+        noCurrentElement(); //no current element.
     }
+
+    /**
+     * Private helper method to have no current element in sequence
+     */
+    private void noCurrentElement() {
+        currentIndex = manyItems;
+    }
+
+    /**
+     *
+     * Private helper method to get current index.
+     */
+    private int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    /**
+     * Private helper method to set current index
+     * @param newIndex
+     */
+    private void setCurrentIndex(int newIndex) {
+        currentIndex = newIndex;
+    }
+
+    /**
+     * Private helper method to count of elements.
+     */
+    private void increaseItemCount(){
+        manyItems++;
+    }
+
+    /**
+     * Private helper method to count of elements.
+     */
+    private void decreaseItemCount(){
+        manyItems--;
+    }
+
+    /**
+     * Private helper method to duplicate elements to a new given array
+     */
+    private void duplicateElementsToNewArray(String[] array) {
+        for (int index = 0; index < size(); index++) {
+            array[index] = data[index];
+        }
+    }
+
+    /**
+     * Private helper method to clear many item count.
+     */
+    private void clearItemCount() {
+        manyItems = 0;
+    }
+
+
 
 }

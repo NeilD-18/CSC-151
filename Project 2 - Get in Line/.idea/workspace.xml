@@ -7,11 +7,19 @@
     <list default="true" id="e06b114f-6541-43d3-a2cd-cfb864b09b5f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/proj2/Sequence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj2/Sequence.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj2/SequenceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj2/SequenceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
