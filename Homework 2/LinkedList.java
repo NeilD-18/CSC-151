@@ -4,8 +4,8 @@ package hwk2;
  * Linked List is a collection of data nodes.  All methods here relate to
  * how one can manipulate those nodes.
  * 
- * @author (your name)
- * @version (a version number or a date)
+ * @author Neil Daterao
+ * @version 1/31/2024
  */
 public class LinkedList
 {
@@ -43,8 +43,15 @@ public class LinkedList
      */
     public String removeHead()
     {
-    	// implement me (AFTER writing some tests)!
-    	return "";  // erase this line; it's just here to make it compile
+    	if (firstNode != null)
+        {
+            ListNode secondNode = firstNode.next;
+            String deletedNodeContents = firstNode.data;
+            firstNode = secondNode;
+            length--;
+            return deletedNodeContents;
+        }
+        return null;
     }
     
     /** insert data at end of list
@@ -53,7 +60,9 @@ public class LinkedList
      */
     public void insertAtTail(String newData)
     {
-    	// implement me (AFTER writing some tests)!
+    	ListNode newNode = new ListNode(newData);
+        ListNode runner = firstNode;
+
     }
 
     /**

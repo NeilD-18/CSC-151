@@ -3,8 +3,8 @@ package hwk2;
 /**
  * ListNode is a building block for a linked list of data items
  * 
- * @author C. Fernandes
- * @version 4/21/22
+ * @author Neil Daterao
+ * @version 1/31/2024
  */
 public class ListNode
 {
