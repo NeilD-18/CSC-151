@@ -12,7 +12,7 @@ public class LinkedListTest {
     @Test
     public void testRemoveHead() {
         LinkedList ll = new LinkedList();
-        //Linked list with 3 elements
+        //Linked list with multiple elements
         ll.insertAtHead("A");
         ll.insertAtHead("B");
         ll.insertAtHead("C");
@@ -21,12 +21,11 @@ public class LinkedListTest {
         ll.insertAtHead("F");
         ll.insertAtHead("G");
 
-
         ll.removeHead();
-        String expected = "(F,E,D,C,B,A)";
 
         //test remove head
-        assertEquals(expected, ll.toString());
+        assertEquals("(F,E,D,C,B,A)", ll.toString());
+        assertEquals(6, ll.getLength());
 
     }
 
@@ -44,10 +43,54 @@ public class LinkedListTest {
     @Test
     public void testRemoveHeadFromEmptyList() {
         // Create an empty linked list
-        LinkedList list = new LinkedList();
+        LinkedList ll = new LinkedList();
 
         // Test removing from an empty list
-        assertNull(list.removeHead());
+        assertNull(ll.removeHead());
+    }
+
+    @Test
+    public void testInsertAtTailInEmptyList() {
+        // Create an empty linked list
+        LinkedList ll = new LinkedList();
+
+        // Insert at the tail of an empty list
+        ll.insertAtTail("A");
+
+        // Verify the list after insertion
+        assertEquals("(A)", ll.toString());
+        assertEquals(1, ll.getLength());
+    }
+
+    @Test
+    public void testInsertAtTailInListWithOneElement() {
+        // Create a linked list with one element
+        LinkedList ll = new LinkedList();
+        ll.insertAtHead("A");
+
+        // Insert at the tail of a list with one element
+        ll.insertAtTail("B");
+
+        // Verify the list after insertion
+        assertEquals("(A,B)", ll.toString());
+        assertEquals(2, ll.getLength());
+    }
+
+    @Test
+    public void testInsertAtTailInListWithMultipleElements() {
+        // Create a linked list with multiple elements
+        LinkedList ll = new LinkedList();
+        ll.insertAtHead("A");
+        ll.insertAtTail("B");
+        ll.insertAtTail("C");
+        ll.insertAtTail("D");
+        ll.insertAtTail("E");
+        ll.insertAtTail("F");
+        ll.insertAtTail("G");
+
+        // Verify the list after insertion
+        assertEquals("(A,B,C,D,E,F,G)", ll.toString());
+        assertEquals(7,ll.getLength());
     }
 
 }

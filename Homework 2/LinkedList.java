@@ -60,8 +60,24 @@ public class LinkedList
      */
     public void insertAtTail(String newData)
     {
-    	ListNode newNode = new ListNode(newData);
-        ListNode runner = firstNode;
+        if (isEmpty()) { insertAtHead(newData); }
+
+        else
+        {
+            ListNode newNode = new ListNode(newData);
+            ListNode runner = firstNode;
+
+            while (runner != null)
+            {
+                if (runner.next == null) {
+                    runner.next = newNode;
+                    runner = newNode.next;
+                    length++;
+                }
+                else { runner = runner.next; }
+
+            }
+        }
 
     }
 
