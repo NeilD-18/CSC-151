@@ -89,8 +89,22 @@ public class LinkedList
      */
     public int indexOf(String value)
     {
-    	// implement me (AFTER writing some tests)!
-    	return 1;  // erase this line; it's just here to make it compile
+        if (isEmpty()) { return -1; }
+
+    	ListNode runner = firstNode;
+        int index = 0;
+
+        while (runner != null) {
+            if (runner.data.equals(value)) { return index; }
+
+            else
+            {
+                runner = runner.next;
+                index++;
+            }
+
+        }
+        return -1;
     }
     
     /**
