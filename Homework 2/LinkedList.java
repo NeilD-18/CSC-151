@@ -25,10 +25,7 @@ public class LinkedList
     public void insertAtHead(String newData)
     {
     	ListNode newnode = new ListNode(newData);
-        if (isEmpty())
-        {
-            firstNode=newnode;
-        }
+        if (isEmpty()) { firstNode=newnode; }
         else
         {
             newnode.next=firstNode;
@@ -43,7 +40,7 @@ public class LinkedList
      */
     public String removeHead()
     {
-    	if (firstNode != null)
+    	if (!isEmpty())
         {
             ListNode secondNode = firstNode.next;
             String deletedNodeContents = firstNode.data;
@@ -51,7 +48,8 @@ public class LinkedList
             length--;
             return deletedNodeContents;
         }
-        return null;
+        else { return null; }
+        
     }
     
     /** insert data at end of list
@@ -69,14 +67,11 @@ public class LinkedList
 
             while (runner != null)
             {
-                if (runner.next == null) {
-                    runner.next = newNode;
-                    runner = newNode.next;
-                    length++;
-                }
-                else { runner = runner.next; }
-
+                runner = runner.next;
+                
             }
+            runner.next = newNode; 
+            length++; 
         }
 
     }

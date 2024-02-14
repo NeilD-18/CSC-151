@@ -1,18 +1,38 @@
-package proj3;  // Gradescope needs this.
+package proj3;  
 /**
- *  I'd fill this in if I were you.  Now.
+ *  Class modeling a Sequence Abstract Data Type (ADT). This is a refactored version of the Sequence class from proj2, this version is LinkedList based
+ *  
+ * Invariant: 
+ * 1. The number of elements in the sequence is contents.size(), i.e the size of the LinkedList. 
+ * 2. Sequence should not know about ListNodes.
+ * 3. For an empty sequence, the contents LinkedList is empty. For a non-empty sequence, the elements of the sequence are linked from the front to the end.  
+ * 4. If there is a current element, it lies in contents.getIthItem(currentIndex). If there is no current element, then currentIndex equals the size of contents.
+ * 
+ * 
+ * @author Neil Daterao
+ * @version 02/13/24
+ * @Note I affirm that I have carried out the attached academic endeavors with full academic honesty, in
+ * accordance with the Union College Honor Code and the course syllabus.
+ *
  */
 public class Sequence
 {
 	private LinkedList contents;
-	// maybe more??
+	private int capacity; 
+    private int currentIndex; 
+
+    private final int DEFAULTCAPACITY = 10;
 	
-    /**
+   /**
      * Creates a new sequence with initial capacity 10.
      */
     public Sequence() {
-    	
-    
+        try { contents = new LinkedList(); }
+        catch (OutOfMemoryError memoryError){
+            throw new OutOfMemoryError("Indicates insufficient memory for new Sequence");
+        }
+        capacity = DEFAULTCAPACITY; 
+        noCurrentElement();
     }
     
 
@@ -22,6 +42,16 @@ public class Sequence
      * @param initialCapacity the initial capacity of the sequence.
      */
     public Sequence(int initialCapacity){
+    	if (initialCapacity < 0) {
+            initialCapacity = DEFAULTCAPACITY; //in the event of a negative input
+        }
+        try { contents = new LinkedList(); }
+        catch (OutOfMemoryError memoryError){
+            throw new OutOfMemoryError("Indicates insufficient memory for new Sequence");
+        }
+        capacity = initialCapacity; 
+        noCurrentElement();
+
 
     }
     
@@ -39,7 +69,15 @@ public class Sequence
      * @param value the string to add.
      */
     public void addBefore(String value)
-    {
+    {   
+        if (getCapacity() <= size()) { ensureCapacity(2*getCapacity() + 1); }
+        if (isCurrent()) { contents.insertAtIndex(currentIndex, value); }
+        else { 
+            int startingIndex = 0;
+            contents.insertAtHead(value);
+            setCurrentIndex(startingIndex);
+        }
+
     }
     
     
@@ -57,6 +95,18 @@ public class Sequence
      */
     public void addAfter(String value)
     {
+        if (getCapacity() <= size()) { ensureCapacity(2*getCapacity() + 1); }
+        if (isCurrent()) {  
+            int indexAfterCurrent = getCurrentIndex() + 1; 
+            contents.insertAtIndex(indexAfterCurrent, value);
+            setCurrentIndex(indexAfterCurrent);
+        }
+        else {
+            int endOfSequenceIndex = size(); 
+            contents.insertAtTail(value);
+            setCurrentIndex(endOfSequenceIndex); //this index is now equal to size()-1, so it is the last valid index.
+        }
+
     }
 
     
@@ -65,6 +115,7 @@ public class Sequence
      */
     public boolean isCurrent()
     {
+        return (getCurrentIndex()< size());
     }
     
     
@@ -73,6 +124,7 @@ public class Sequence
      */
     public int getCapacity()
     {
+        return capacity; 
     }
 
     
@@ -82,6 +134,8 @@ public class Sequence
      */
     public String getCurrent()
     {
+        if (isCurrent()) { return contents.getIthItem(getCurrentIndex()); }
+        else { return null; }
     }
     
     
@@ -95,6 +149,7 @@ public class Sequence
      */
     public void ensureCapacity(int minCapacity)
     {
+        if (getCapacity() < minCapacity) { setCapacity(minCapacity); }
     }
 
     
@@ -115,6 +170,7 @@ public class Sequence
      */
     public void addAll(Sequence another)
     {
+
     }
 
     
@@ -129,6 +185,11 @@ public class Sequence
      */
     public void advance()
     {
+        if (isCurrent()) { 
+            int endOfSequenceIndex = size() - 1; //last valid index
+            if (getCurrentIndex() < endOfSequenceIndex) { currentIndex++; }
+        }
+        else { noCurrentElement(); }
     }
 
     
@@ -144,6 +205,19 @@ public class Sequence
      */
     public Sequence clone()
     {
+        try {
+            Sequence clonedSequence = new Sequence(getCapacity()); 
+            LinkedList clonedContents = contents.clone(); 
+            clonedSequence.contents = clonedContents; 
+            clonedSequence.setCurrentIndex(getCurrentIndex());
+
+            return clonedSequence;
+
+        }
+        catch (OutOfMemoryError memoryError){
+            throw new OutOfMemoryError("Indicates insufficient memory for Cloned Sequence");
+        }
+
     }
    
     
@@ -165,6 +239,7 @@ public class Sequence
      */
     public int size()
     {
+        return contents.size();
     }
 
     
@@ -174,6 +249,8 @@ public class Sequence
      */
     public void start()
     {
+        if (!isEmpty()) { setCurrentIndex(0); }
+        else { noCurrentElement(); }
     }
 
     
@@ -203,6 +280,29 @@ public class Sequence
      */
     public String toString() 
     {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("{");
+
+        for (int index = 0; index < size(); index++) {
+            // Add the current element with a ">" if it matches the current index
+            if (index == getCurrentIndex()) {
+                sb.append(">").append(contents.getIthItem(index));
+            } else {
+                sb.append(contents.getIthItem(index));
+            }
+
+            // Add a comma if it's not the last element
+            if (index < size() - 1) {
+                sb.append(", ");
+            }
+        }
+
+        sb.append("} (capacity = ").append(getCapacity()).append(")");
+
+        return sb.toString();
+
+
     }
     
     /**
@@ -221,6 +321,24 @@ public class Sequence
      */
     public boolean equals(Sequence other) 
     {
+        if (this == other) { return true; } //see if objects are the same
+        if (other == null) { return false; }
+
+        //see if size and currentIndex are equal before running through each sequence
+        if (size() == other.size() && getCurrentIndex() == other.getCurrentIndex() ) {
+            Sequence clonedOther = other.clone();
+            clonedOther.start();
+
+            for (int index = 0; index < size(); index++) {
+
+                if (!contents.getIthItem(index).equals(clonedOther.getCurrent())) { return false; }
+                else { clonedOther.advance(); }
+            }
+            return true;
+
+        }
+
+        else { return false; }
     }
     
     
@@ -239,5 +357,40 @@ public class Sequence
     public void clear()
     {
     }
+
+
+    /**
+     * Private helper method to have no current element in sequence
+     */
+    private void noCurrentElement() {
+        currentIndex = contents.size(); 
+    }
+
+    /**
+     *
+     * Private getter method to get current index.
+     */
+    private int getCurrentIndex() {
+        return currentIndex;
+    }
+
+
+     /**
+     *
+     * Private setter method to update capacity.
+     */
+    private void setCapacity(int newCapacityValue) { 
+        capacity = newCapacityValue; 
+    }
+
+    /**
+     * Private setter method to set current index
+     * @param newIndex
+     */
+    private void setCurrentIndex(int newIndex) {
+        currentIndex = newIndex;
+    }
+
+
 
 }
