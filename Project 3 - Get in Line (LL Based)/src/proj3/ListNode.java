@@ -4,8 +4,8 @@ package proj3;
  * The ListNode class is more data-specific than the LinkedList class.  It
  * details what a single node looks like.  This node has one data field,
  * holding a pointer to a String object. 
- *
- * This is the only class where I'll let you use public instance variables.
+ * 
+ * @author Neil Daterao
  * 
  */
 public class ListNode

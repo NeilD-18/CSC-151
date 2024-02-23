@@ -115,7 +115,7 @@ public class Sequence
      */
     public boolean isCurrent()
     {
-        return (getCurrentIndex()< size());
+        return (getCurrentIndex() < size() );
     }
     
     
@@ -170,6 +170,21 @@ public class Sequence
      */
     public void addAll(Sequence another)
     {
+        ensureCapacity(size() + another.size());
+        Sequence clonedAnother = another.clone();
+
+        int currentIndexHolder = getCurrentIndex();
+        boolean noCurrentBeforeAddAll = false;
+        if (!isCurrent())  { noCurrentBeforeAddAll = true; }
+        setCurrentIndex(size()-1);
+
+        clonedAnother.start();
+        for (int count = 0; count < clonedAnother.size(); count++) {
+            addAfter(clonedAnother.getCurrent());
+            clonedAnother.advance();
+        }
+        if (noCurrentBeforeAddAll) { noCurrentElement(); } //reset current index to prior to method call
+        else { setCurrentIndex(currentIndexHolder); } //reset current index to prior to method call
 
     }
 
@@ -186,8 +201,7 @@ public class Sequence
     public void advance()
     {
         if (isCurrent()) { 
-            int endOfSequenceIndex = size() - 1; //last valid index
-            if (getCurrentIndex() < endOfSequenceIndex) { currentIndex++; }
+            if (getCurrentIndex() < size()) { currentIndex++; }
         }
         else { noCurrentElement(); }
     }
@@ -231,6 +245,7 @@ public class Sequence
      */
     public void removeCurrent()
     {
+        if (isCurrent()) { contents.removeAtIndex(getCurrentIndex());}
     }
 
     
@@ -260,6 +275,7 @@ public class Sequence
      */
     public void trimToSize()
     {
+        setCapacity(size());
     }
     
     
@@ -321,14 +337,14 @@ public class Sequence
      */
     public boolean equals(Sequence other) 
     {
-        if (this == other) { return true; } //see if objects are the same
+        if (this == other) { return true; } 
         if (other == null) { return false; }
 
-        //see if size and currentIndex are equal before running through each sequence
+        
         if (size() == other.size() && getCurrentIndex() == other.getCurrentIndex() ) {
             Sequence clonedOther = other.clone();
+            
             clonedOther.start();
-
             for (int index = 0; index < size(); index++) {
 
                 if (!contents.getIthItem(index).equals(clonedOther.getCurrent())) { return false; }
@@ -348,6 +364,7 @@ public class Sequence
      */
     public boolean isEmpty()
     {
+        return contents.isEmpty();
     }
     
     
@@ -356,6 +373,8 @@ public class Sequence
      */
     public void clear()
     {
+        contents.clear();
+        noCurrentElement();
     }
 
 

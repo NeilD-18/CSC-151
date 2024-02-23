@@ -2,7 +2,7 @@ package proj3;
 
 /**
  * Linked List is a collection of data nodes.  All methods here relate to
- * how one can manipulate those nodes.
+ * how one can manipulate those nodes. 
  * 
  * @author Neil Daterao
  * @version 2/13/2024
@@ -146,7 +146,7 @@ public class LinkedList
 
     /**
      * returns the ith item in the list (where first item is index 0)
-     * @return the data inside the node at given index. Return -1 if not there.
+     * @return the data inside the node at given index. Return null if not there.
      */
     public String getIthItem(int index){
         ListNode runner = firstNode;
@@ -179,24 +179,23 @@ public class LinkedList
         if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException("Invalid index: " + index);
         }
-    
+        ListNode runner = firstNode;
         ListNode newNode = new ListNode(newData);
-    
         
-        if (index == 0) { insertAtHead(newData); } 
-        else if (index == length) { insertAtTail(newData);}
+        if (index == 0) { insertAtHead(newData); }
+        
         else {
-            ListNode runner = firstNode;
-            // Traverse the list to the node before the desired index
+            
             for (int i = 0; i < index - 1; i++) {
                 runner = runner.next;
             }
-            // Insert the new node after the node at the desired index
+        
             newNode.next = runner.next;
-            runner.next = newNode;
+            runner.next = newNode; 
+            length++; 
         }
-    
-        length++; 
+            
+
     }
 
     /**
@@ -259,6 +258,50 @@ public class LinkedList
         }
         return false; 
     }
+
+
+    /**
+     * Method to remove data at a specified index. 
+     * @param index Index to be removed
+     */
+    public void removeAtIndex(int index) {
+        if (index < 0 || index >= length) {
+            throw new IndexOutOfBoundsException("Invalid index: " + index);
+        }
+        if (index == 0) { removeHead(); } 
+        else {
+    
+            ListNode previousNode = getNodeAtIndex(index - 1);
+            ListNode currentNode = previousNode.next;
+            previousNode.next = currentNode.next; //skip over currentNode. 
+            length--;
+        }
+
+        
+    }
+
+    /**
+     * Private helper/getter to get the node at a specified index
+     * @param index given index
+     * @return ListNode at given index. 
+     */
+    private ListNode getNodeAtIndex(int index) {
+        ListNode current = firstNode;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current;
+    }
+
+    
+    /**
+     * Empty the LinkedList. 
+     */
+    public void clear() {
+        firstNode = null; 
+        length = 0; 
+    }
+
 
 
 

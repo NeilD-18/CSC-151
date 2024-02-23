@@ -6,7 +6,8 @@ import org.junit.rules.Timeout;
 import static org.junit.Assert.*;
 
 /**
- * LinkedList testing class for RemoveHead, InsertAtTail and indexOf
+ * LinkedList testing class for all methods in class. 
+ * @author Neil Daterao
  */
 
 public class LinkedListTester {
@@ -383,6 +384,87 @@ public class LinkedListTester {
         list.insertAtHead("A");
 
         assertTrue(list.contains("A")); // List with duplicate elements should contain "A"
+    }
+
+
+    @Test
+    public void testRemoveAtIndexFromEmptyList() {
+        LinkedList list = new LinkedList();
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            list.removeAtIndex(0);
+        });
+    }
+
+    @Test
+    public void testRemoveAtIndexOutOfBounds() {
+        LinkedList list = new LinkedList();
+        list.insertAtHead("A");
+        list.insertAtHead("B");
+        list.insertAtHead("C");
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            list.removeAtIndex(3); // Index out of bounds
+        });
+    }
+
+    @Test
+    public void testRemoveAtIndexFirstNode() {
+        LinkedList list = new LinkedList();
+        list.insertAtHead("A");
+        list.insertAtHead("B");
+        list.insertAtHead("C");
+        list.removeAtIndex(0);
+        assertEquals("(B, A)", list.toString());
+    }
+
+    @Test
+    public void testRemoveAtIndexLastNode() {
+        LinkedList list = new LinkedList();
+        list.insertAtHead("A");
+        list.insertAtHead("B");
+        list.insertAtHead("C");
+        list.removeAtIndex(2);
+        assertEquals("(C, B)", list.toString());
+    }
+
+    @Test
+    public void testRemoveAtIndexMiddleNode() {
+        LinkedList list = new LinkedList();
+        list.insertAtHead("A");
+        list.insertAtHead("B");
+        list.insertAtHead("C");
+        list.removeAtIndex(1);
+        assertEquals("(C, A)", list.toString());
+    }
+
+
+    @Test
+    public void testClearEmptyList() {
+        LinkedList list = new LinkedList();
+        list.clear();
+        assertTrue(list.isEmpty()); 
+        assertEquals(0, list.getLength()); 
+    }
+
+    @Test
+    public void testClearNonEmptyList() {
+        LinkedList list = new LinkedList();
+        list.insertAtHead("A");
+        list.insertAtHead("B");
+        list.insertAtHead("C");
+        list.clear();
+        assertTrue(list.isEmpty()); 
+        assertEquals(0, list.getLength()); 
+    }
+
+    @Test
+    public void testClearMultipleTimes() {
+        LinkedList list = new LinkedList();
+        list.insertAtHead("A");
+        list.insertAtHead("B");
+        list.clear();
+        list.clear(); 
+        assertTrue(list.isEmpty()); 
+        assertEquals(0, list.getLength()); 
     }
 
 
