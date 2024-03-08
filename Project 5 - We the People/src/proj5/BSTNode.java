@@ -1,10 +1,10 @@
 package proj5;
 
-/** A not-very-reusable node class, since it only holds a String.
- *  But good enough for this hwk.
+/** 
+ * Generic BinarySearchTree Node class. 
  * 
- * @author Chris Fernandes
- * @version 2/27/24
+ * @author Neil Daterao
+ * @version 3/08/2024
  */
 public class BSTNode<Element extends Comparable<Element>>{
 

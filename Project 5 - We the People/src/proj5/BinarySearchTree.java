@@ -1,15 +1,18 @@
 package proj5;
 
 /** 
- * Binary Search Tree Abstract Data Type (ADT)
+ * Generic Binary Search Tree Abstract Data Type (ADT)
  * 
  * @author Neil Daterao
- * @version 2/29/2024
+ * @version 3/08/2024
  */
 public class BinarySearchTree<Element extends Comparable<Element>>
 {
     private BSTNode<Element> root;
         
+    /**
+     * Default constructor, initialize empty BST
+     */
     public BinarySearchTree() {
         root=null; 
     }
