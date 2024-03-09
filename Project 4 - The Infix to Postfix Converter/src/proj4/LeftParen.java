@@ -1,11 +1,18 @@
 package proj4;
 
 /**
- * Write a description of class LeftParen here.
+ * Class for Left Parenthesis Token
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Neil Daterao
+ * @version 2/24/2024
  */
-public class LeftParen {
+public class LeftParen implements Token {
 
+    public String toString() { return "("; }
+
+    public String handle(Stack<Token> s) { 
+        s.push(this);
+        return ""; 
+    }
+    
 }

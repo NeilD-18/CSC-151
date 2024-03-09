@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ce82ab6c-bbea-40d2-88a8-60c096990741" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Project 2 - Get in Line/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 2 - Get in Line/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 2 - Get in Line/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 2 - Get in Line/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Converter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Converter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Divide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Divide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Exponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Exponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/LeftParen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/LeftParen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Minus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Minus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Multiply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Multiply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Plus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Plus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/RightParen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/RightParen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Semicolon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Semicolon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Stack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proj4/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proj4/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/proj4_input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/proj4_input.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/StackTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/StackTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2csXBQa3dzcBWMTEOSzRYX9AwJQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/neil/Desktop/CSC-151/Project 4 - The Infix to Postfix Converter&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Project 4 - The Infix to Postfix Converter" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Project 4 - The Infix to Postfix Converter" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ce82ab6c-bbea-40d2-88a8-60c096990741" name="Changes" comment="" />
+      <created>1708901124343</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1708901124343</updated>
+    </task>
+    <servers />
+  </component>
+</project>

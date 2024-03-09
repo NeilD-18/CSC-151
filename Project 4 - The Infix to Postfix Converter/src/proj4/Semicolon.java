@@ -1,11 +1,19 @@
 package proj4;
 
 /**
- * Write a description of class Semicolon here.
+ * Class for Right Parenthesis Token.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Neil Daterao
+ * @version 2/24/2024
  */
-public class Semicolon {
-	
+public class Semicolon implements Token {
+
+    public String toString() { return ";"; }
+
+    public String handle(Stack<Token> s) { 
+        StringBuilder output = new StringBuilder();
+        while (!s.isEmpty()) { output.append(s.pop().toString()); }
+        return output.toString(); 
+    }
+    
 }

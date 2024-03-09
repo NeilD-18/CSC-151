@@ -1,9 +1,19 @@
 package proj4;
 
-// Don't forget the Javadocs!
-// Notice that the generic type parameter does NOT implement
-// the Token interface.  Make sure you understand why it shouldn't
-// (and see the StackTest class for a hint.  Or just ask me!)
+/**
+ * Generic Stack Class. Able to create a stack of any data type. 
+ * Invariant: 
+ * 1. Number of elements in the Stack is stored in the instance variable count
+ * 2. For an empty sequence, we don't care what is stored in data. For a nonempty sequence, the elements of the sequence
+ *    are stored from the front to the end in contents[0] to contents[count-1], we don't care what's stored in the rest of
+ *    data
+ * 3. Capacity of the stack is incremented using predetermined capacityIncrement 
+ * 4. Popping from the stack decreases count by 1
+ * 5. Pushing to the stack increases count by 1
+ * 
+ * @author Neil Daterao
+ * @version 2/24/2024
+ */
 public class Stack<T>
 {
     
@@ -35,7 +45,6 @@ public class Stack<T>
     	return (size() == 0);  //erase this line  
     }
 
-    
     /**
      * Pushes an element onto the top of this stack.
      * 
@@ -82,14 +91,14 @@ public class Stack<T>
     }
      
     /**
- * Returns a string representation of this stack. The string representation
- * consists of the elements in the stack, enclosed in curly braces ("{}"),
- * with the top of the stack indicated by ">" and separated by commas.
- * The top element is listed first, followed by the subsequent elements
- * in the order they would be popped off the stack.
- *
- * @return a string representation of this stack
- */
+     * Returns a string representation of this stack. The string representation
+     * consists of the elements in the stack, enclosed in curly braces ("{}"),
+    * with the top of the stack indicated by ">" and separated by commas.
+    * The top element is listed first, followed by the subsequent elements
+    * in the order they would be popped off the stack.
+    *
+    * @return a string representation of this stack
+    */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{>");

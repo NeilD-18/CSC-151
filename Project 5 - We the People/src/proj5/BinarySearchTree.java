@@ -25,7 +25,7 @@ public class BinarySearchTree<Element extends Comparable<Element>>
     * @return the BST rooted at subroot that has newNode inserted
     */
     private BSTNode<Element> recursiveInsert(BSTNode<Element> subroot, BSTNode<Element> newNode) {
-      if (subroot == null) {
+      if (isEmpty(subroot)) {
         return newNode;
       }
       else if (newNode.data.compareTo(subroot.data) > 0) {
@@ -58,7 +58,7 @@ public class BinarySearchTree<Element extends Comparable<Element>>
     {   
       StringBuilder builder = new StringBuilder();
       
-      if (subroot != null) {
+      if (!isEmpty(subroot)) {
           builder.append("(");
           builder.append(print(subroot.llink));
           builder.append(" " + subroot + " ");
@@ -98,7 +98,7 @@ public class BinarySearchTree<Element extends Comparable<Element>>
      * @return 
      */
     private int size(BSTNode<Element> subRoot) { 
-      if (subRoot == null) { return 0; }    
+      if (isEmpty(subRoot)) { return 0; }    
       else { return 1 + size(subRoot.llink) + size(subRoot.rlink);  }  
       
     }
@@ -122,7 +122,7 @@ public class BinarySearchTree<Element extends Comparable<Element>>
      * @return true if target is in BST and false if not 
      */
     private boolean search(Element target, BSTNode<Element> subRoot) { 
-        if (subRoot == null) { return false; }  
+        if (isEmpty(subRoot)) { return false; }  
         else if (subRoot.data.equals(target)) { return true; }
 
         else if (subRoot.data.compareTo(target) > 0 ){ 
@@ -188,7 +188,7 @@ public class BinarySearchTree<Element extends Comparable<Element>>
      * @return
      */
     private BSTNode<Element> findMin(BSTNode<Element> subroot) {
-      while (subroot.llink != null) {
+      while (!isEmpty(subroot.llink)) {
           subroot = subroot.llink;
       }
       return subroot;

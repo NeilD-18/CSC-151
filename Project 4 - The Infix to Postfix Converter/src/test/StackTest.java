@@ -11,7 +11,7 @@ import proj4.Stack;
 
 /**
  * 
- * Tests for generic stack class. Has tests for a string and integer stack. 
+ * Tests for generic stack class. Has tests for a string and integer stack, ensuring stack can be created regardless of type
  * 
  * @author Neil Daterao
  * @version 2/22/2024

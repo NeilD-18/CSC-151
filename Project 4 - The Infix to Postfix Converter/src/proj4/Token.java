@@ -11,6 +11,11 @@ package proj4;
  */
 public interface Token
 {
+
+	public static final int PLUSMINUSPRECEDENCE = 1;
+	public static final int MULTIPLYDIVIDEPRECEDENCE = 2;
+	public static final int EXPONENTPRECEDENCE = 3; 
+
 	/** Processes the current token.  Since every token will handle
 	 *  itself in its own way, handling may involve pushing or
 	 *  popping from the given stack and/or appending more tokens
@@ -27,5 +32,6 @@ public interface Token
      *  for a right parenthesis.
      */
     public String toString();
+
 
 }

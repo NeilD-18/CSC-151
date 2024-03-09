@@ -5,7 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e06b114f-6541-43d3-a2cd-cfb864b09b5f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Converter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Converter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Divide.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Divide.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Exponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Exponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/LeftParen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/LeftParen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Minus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Minus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Multiply.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Multiply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Plus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Plus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/RightParen.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/RightParen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Semicolon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Semicolon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Stack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/proj4/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/resources/proj4_input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/resources/proj4_input.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/test/StackTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Project 4 - The Infix to Postfix Converter/src/test/StackTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,17 +46,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/dateraon/Desktop/CSC-151/Homework 2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/dateraon/Desktop/CSC-151/Homework 2&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
