@@ -1,7 +1,7 @@
 package proj5;
 
 /** 
- * Generic Binary Search Tree Abstract Data Type (ADT)
+ * Generic Binary Search Tree Abstract Data Type (ADT). Can hold any element that extends the Comparable Interface.
  * 
  * @author Neil Daterao
  * @version 3/08/2024

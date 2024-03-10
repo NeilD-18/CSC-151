@@ -1,10 +1,8 @@
 package proj5;
 
-import javax.lang.model.element.Element;
-
 /**
  * Linked List is a collection of data nodes.  All methods here relate to
- * how one can manipulate those nodes. 
+ * how one can manipulate those nodes. Generic linked list class that can hold any element that extends the Comparable Interface.
  * 
  * @author Neil Daterao
  * @version 2/13/2024
