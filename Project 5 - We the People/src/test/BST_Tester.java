@@ -290,6 +290,30 @@ public class BST_Tester {
         assertEquals("(( 3 ) 5 (( 6 ) 7 ( 8 )))", intBst.toString());
         
     }
+
+    @Test
+    public void testGetExistingElement() {
+        intBst.insert(10);
+        intBst.insert(8);
+        intBst.insert(4);
+        
+        Integer target = 8;
+        BSTNode<Integer> resultNode = intBst.get(target);
+        assertNotNull(resultNode); // Check that the result is not null
+        assertEquals(target, resultNode.data); // Check that the correct node is returned
+    }
+
+    @Test
+    public void testGetNonExistingElement() {
+        intBst.insert(10);
+        intBst.insert(8);
+        intBst.insert(4);
+        
+        Integer target = 2;
+        BSTNode<Integer> resultNode = intBst.get(target);
+        assertNull(resultNode); // Check that the result is not null
+
+    }
 }
 
 

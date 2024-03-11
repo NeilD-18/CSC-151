@@ -10,7 +10,7 @@ public class Client
 {
     public static void main(String[] args)
     {
-    	makeIndex("path/to/input.txt"); //replace with correct path
+    	makeIndex("src/resources/uscons.txt"); //replace with correct path
     }
     
     /**
@@ -20,6 +20,7 @@ public class Client
      */
     public static void makeIndex(String fileName) {
     	
-    	
+    	Index index = new Index(fileName); 
+        index.createIndex(); 
     }
 }

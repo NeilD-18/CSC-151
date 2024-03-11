@@ -18,6 +18,18 @@ public class IndexEntry implements Comparable<IndexEntry> {
         this.data = data; 
         pageList = new PageList(); 
     }
+    
+    /**
+     * Constructor to initliaze an index entry with the data and the first page seen. 
+     * @param data
+     * @param firstPage
+     */
+    public IndexEntry(String data, int firstPage) { 
+        this.data = data; 
+        pageList = new PageList(); 
+        pageList.addPage(firstPage);
+    }
+
 
     /**
      * 
@@ -49,7 +61,7 @@ public class IndexEntry implements Comparable<IndexEntry> {
     /**
      * @return String version of Index Entry
      * example: 
-     *  "like {3, 8}"
+     *  "java {3, 8}"
      */
     public String toString() { 
         return getWord().toString() + " " + pageList.toString();

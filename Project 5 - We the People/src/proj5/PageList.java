@@ -24,6 +24,23 @@ public class PageList {
 
     /**
      * 
+     * @param pageNumber to remove from pagelist
+     */
+    public void removePage(int pageNumber) { 
+        contents.removeAtIndex(contents.indexOf(pageNumber));
+    }
+
+    /**
+     * 
+     * @param pageNumber
+     * @return True if pageNumber in in list and false if not
+     */
+    public Boolean containsPage(int pageNumber) { 
+        return contents.contains(pageNumber); 
+    }
+
+    /**
+     * 
      * @return Size of page list
      */
     public int size() { 
@@ -37,22 +54,57 @@ public class PageList {
     public boolean isEmpty() {
         return contents.isEmpty();
     }
+
+    /**
+     * Adds the contents of another pagelist to this pagelist. Does not change what is in other page list. 
+     * @param otherPageList
+     */
+    public void addPageList(PageList otherPageList) { 
+        LinkedList<Integer> otherList = otherPageList.contents.clone();
+        while (!otherList.isEmpty()) { 
+            addPage(otherList.removeHead());
+        }
+    }
     
     
     
     /**
-     * @return String version of page list. Enclosed in Squiggly Brackets, seperated by commas.
-     * Ex: {1, 2, 3, 4}
+     * @return String version of page list. Enclosed in Squiggly Brackets, seperated by commas. If consecutive pages, start and end are seperated by dashes.
+     * Ex: {2,4,7,9}
+     * Ex: {2-4,7} == {2,3,4,7}
+     * 
      */
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for (int i = 0; i < contents.size(); i++) {
-            sb.append(contents.getIthItem(i));
-            if (i < contents.size() - 1) {
-                sb.append(", ");
+    
+        if (contents.size() > 0) {
+            int start = contents.getIthItem(0);
+            int end = start;
+    
+            for (int i = 1; i < contents.size(); i++) {
+                if (contents.getIthItem(i) == end + 1) {
+                    end++;
+                } else {
+                    if (start == end) {
+                        sb.append(start);
+                    } else {
+                        sb.append(start).append("-").append(end);
+                    }
+    
+                    sb.append(", ");
+                    start = contents.getIthItem(i);
+                    end = start;
+                }
+            }
+    
+            if (start == end) {
+                sb.append(start);
+            } else {
+                sb.append(start).append("-").append(end);
             }
         }
+    
         sb.append("}");
         return sb.toString();
     }

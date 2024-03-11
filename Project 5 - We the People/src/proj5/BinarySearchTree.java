@@ -1,5 +1,4 @@
 package proj5;
-
 /** 
  * Generic Binary Search Tree Abstract Data Type (ADT). Can hold any element that extends the Comparable Interface.
  * 
@@ -44,8 +43,10 @@ public class BinarySearchTree<Element extends Comparable<Element>>
     * @param newElement to insert
     */
     public void insert(Element newElement){
-      BSTNode<Element> newNode = new BSTNode<>(newElement);
-      root = recursiveInsert(root, newNode);
+        if (!search(newElement)) {
+          BSTNode<Element> newNode = new BSTNode<>(newElement);
+          root = recursiveInsert(root, newNode);
+        }  
     }
     
     
@@ -85,6 +86,27 @@ public class BinarySearchTree<Element extends Comparable<Element>>
     }
 
     /**
+     * String version of BST in ascending order on seperate lines.
+     * @return
+     */
+    public String toStringReverseInOrderTraversal() {
+        return reverseInOrder(root);
+    }
+
+    // Helper method for reverse in-order traversal and building the string representation. Builds in ascending order (least->greatest)
+    private String reverseInOrder(BSTNode<Element> subRoot) {
+      StringBuilder builder = new StringBuilder();
+  
+      if (!isEmpty(subRoot)) {
+          builder.append(reverseInOrder(subRoot.llink));
+          builder.append(subRoot.data).append("\n");
+          builder.append(reverseInOrder(subRoot.rlink));
+      }
+  
+      return builder.toString();
+  }
+
+    /**
      * 
      * @return number of data items (nodes) in the tree 
      */
@@ -104,7 +126,6 @@ public class BinarySearchTree<Element extends Comparable<Element>>
     }
 
 
-    
     /**
      * 
      * @param target value to search for
@@ -112,6 +133,15 @@ public class BinarySearchTree<Element extends Comparable<Element>>
      */
     public boolean search(Element target) { 
         return search(target, root); 
+    }
+
+    /**
+     * Returns the BSTNode of the target 
+     * @param target
+     * @return BSTNode of target, or null if target is not in BST.
+     */
+    public BSTNode<Element> get(Element target) { 
+        return searchAndReturnNode(target, root);
     }
 
    
@@ -123,15 +153,32 @@ public class BinarySearchTree<Element extends Comparable<Element>>
      */
     private boolean search(Element target, BSTNode<Element> subRoot) { 
         if (isEmpty(subRoot)) { return false; }  
-        else if (subRoot.data.equals(target)) { return true; }
-
-        else if (subRoot.data.compareTo(target) > 0 ){ 
-            return search(target, subRoot.llink);
+        else {
+            int comparison = subRoot.data.compareTo(target);
+            
+            if (comparison == 0) { return true; }
+            else if (comparison > 0) { return search(target, subRoot.llink); }
+            else { return search(target, subRoot.rlink); }
         }
-        else { return search(target, subRoot.rlink); }
     }
 
-    
+    /**
+     * Private recursive method to search and return the node for target given a subroot in a BST
+     * @param target
+     * @param subRoot
+     * @return true if target is in BST and false if not 
+     */
+    private BSTNode<Element> searchAndReturnNode(Element target, BSTNode<Element> subRoot) { 
+        if (isEmpty(subRoot)) { return null; }  
+        else {
+            int comparison = subRoot.data.compareTo(target);
+            
+            if (comparison == 0) { return subRoot; }
+            else if (comparison > 0) { return searchAndReturnNode(target, subRoot.llink); }
+            else { return searchAndReturnNode(target, subRoot.rlink); }
+        }
+    }
+  
     /**
      * Deletes value from a tree, if value is not there, do nothing
      * @param value value to be deleted
