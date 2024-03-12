@@ -1,4 +1,5 @@
 package proj5;
+
 /** 
  * Generic Binary Search Tree Abstract Data Type (ADT). Can hold any element that extends the Comparable Interface.
  * 
@@ -31,7 +32,7 @@ public class BinarySearchTree<Element extends Comparable<Element>>
         subroot.rlink = recursiveInsert(subroot.rlink,newNode);
         return subroot;
       }
-      else {  // newNode.data smaller than subroot.data, so newNode goes on left
+      else { 
         subroot.llink = recursiveInsert(subroot.llink,newNode);
         return subroot;
       }
@@ -93,7 +94,9 @@ public class BinarySearchTree<Element extends Comparable<Element>>
         return reverseInOrder(root);
     }
 
-    // Helper method for reverse in-order traversal and building the string representation. Builds in ascending order (least->greatest)
+    /**
+     * Helper method for reverse in-order traversal and building the string representation. Builds in ascending order (least->greatest)
+     */ 
     private String reverseInOrder(BSTNode<Element> subRoot) {
       StringBuilder builder = new StringBuilder();
   

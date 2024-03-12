@@ -5,7 +5,7 @@ package proj5;
  * how one can manipulate those nodes. Generic linked list class that can hold any element that extends the Comparable Interface.
  * 
  * @author Neil Daterao
- * @version 2/13/2024
+ * @version 3/09/2024
  */
 public class LinkedList<Element extends Comparable<Element>>
 {
@@ -302,14 +302,6 @@ public class LinkedList<Element extends Comparable<Element>>
         firstNode = null; 
         length = 0; 
     }
-
-
-
-
-
-
-
-
 
     
 

@@ -9,6 +9,11 @@ import org.junit.rules.Timeout;
 
 import proj5.*;
 
+/**
+ * Testing class for Index. Contains various edge cases and tests for basic functionality
+ * @author Neil Daterao
+ * @version 03/09/2024
+ */
 public class Index_Tester {
     
     @Rule
@@ -16,7 +21,7 @@ public class Index_Tester {
 
     
     private Index index;
-    private final String testTextFile = "/Users/neil/Desktop/CSC-151/Project 5 - We the People/src/resources/test.txt";
+    private final String testTextFile = "src/resources/test.txt";
 
     
     @Before
@@ -92,6 +97,26 @@ public class Index_Tester {
     }
 
 
+    @Test
+    public void testWordsLessThan2CharsAreNotAddedToIndex() { 
+        String indexContent = index.toString(); 
+        
+        String[] lines = indexContent.split("\\r?\\n");
+        for (String line : lines) {
+            String word = line.split("\\s+")[0]; 
+            assertTrue(word.length() > 2); 
+        }
+
+    }
+
+    @Test
+    public void testMultipleWordsOnSamePageOnlyCountsOnce(){
+        assertTrue("Index contains 'boggle'", index.contains("boggle"));
+        assertEquals(1, index.getIndexEntry("boggle").getPageList().size());
+        assertTrue("Boggle shown on page 13 4 times, 13 should only be added once", index.getIndexEntry("the").getPageList().containsPage(13));
+    }
+
+ 
     @Test
     public void testIndexAlphabeticalOrder() {
         String previousWord = null;

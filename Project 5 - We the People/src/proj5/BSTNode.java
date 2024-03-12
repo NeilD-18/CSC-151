@@ -14,7 +14,7 @@ public class BSTNode<Element extends Comparable<Element>>{
 	
 	/**
 	 * non-default constructor
-	 * @param newKey string that node will hold
+	 * @param newKey Element that node will hold
 	 */
 	public BSTNode(Element newKey)
 	{

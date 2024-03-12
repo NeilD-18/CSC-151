@@ -9,6 +9,7 @@ package proj5;
 public class PageList {
     
     private LinkedList<Integer> contents; 
+    
 
     /**
      * Default constructor, creates empty pageList

@@ -50,6 +50,14 @@ public class Dictionary {
     }
 
     /**
+     * 
+     * @return True if dictionary is empty, false if not
+     */
+    public Boolean isEmpty() { 
+        return contents.size() == 0; 
+    }
+
+    /**
      * @return String version of dictionary in ascending order with a word per line. 
      */
     public String toString() {

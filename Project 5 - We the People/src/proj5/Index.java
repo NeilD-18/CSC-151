@@ -1,12 +1,12 @@
 package proj5;
 
-
 /**
  * Index class.
  * Indexes will only include words such that there are less than MAXPAGESINPAGELIST occurances of the word
  * in a file on different pages. Additionally, indexes will only contain words longer than MINWORDLENGTH 
  * Pages breaks should be denoted using "#" within file.
  * Words not included in index will be stored in a Dictionary. 
+ * 
  * @author Neil Daterao
  * @version 3/09/2024 
  */
