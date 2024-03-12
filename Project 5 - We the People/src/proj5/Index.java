@@ -3,10 +3,10 @@ package proj5;
 
 /**
  * Index class.
- * Indexes will only include words such that there are <= 4 occurances of the word
- * in a file on different pages. Pages breaks should be denoted using "#" within file.
- * 
- * 
+ * Indexes will only include words such that there are less than MAXPAGESINPAGELIST occurances of the word
+ * in a file on different pages. Additionally, indexes will only contain words longer than MINWORDLENGTH 
+ * Pages breaks should be denoted using "#" within file.
+ * Words not included in index will be stored in a Dictionary. 
  * @author Neil Daterao
  * @version 3/09/2024 
  */
@@ -17,8 +17,8 @@ public class Index {
     private int currentPage; 
     private Dictionary dictionary; 
     
-    private final int MINWORDLENGTH = 2;
-    private final int MAXPAGESINPAGELIST = 4;
+    public final int MINWORDLENGTH = 2;
+    public final int MAXPAGESINPAGELIST = 4;
    
 
     /**
@@ -41,7 +41,7 @@ public class Index {
 		while ((token = reader.nextToken()) != null) { 
             if (token.equals("#")) { nextPage(); }
             else { 
-                if (token.length() > MINWORDLENGTH && !dictionary.contains(token)) { 
+                if (token.length() > MINWORDLENGTH && !getDictionary().contains(token)) { 
                     if (this.contains(token)) { updateIndex(token); } 
                     else { this.add(token);  }
                 }
@@ -50,6 +50,14 @@ public class Index {
         }
         System.out.println(this.toString());
         System.out.println(dictionary);
+    }
+
+    /**
+     * Getter for Dictionary
+     * @return
+     */
+    public Dictionary getDictionary() { 
+        return dictionary; 
     }
 
     /**
@@ -159,6 +167,8 @@ public class Index {
         PageList pageListForLowerCaseWord = newEntry.getPageList();
         pageListForLowerCaseWord.addPageList(pageListForUppercaseWord);
         contents.insert(newEntry);
+        deleteEntryFromIndex(upperCaseWord);
+        getDictionary().remove(upperCaseWord); //we don't want the uppercase word to be placed in dictionary
         updateIndex(word); 
     }
 
@@ -202,7 +212,7 @@ public class Index {
                 pageListForWord.addPage(getCurrentPage());
             } else { 
                 deleteEntryFromIndex(token);
-                dictionary.add(token);
+                getDictionary().add(token);
             }  
         }
     }

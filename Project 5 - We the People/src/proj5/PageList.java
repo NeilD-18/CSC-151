@@ -1,7 +1,7 @@
 package proj5;
 
 /**
- * PageList class, does not hold duplicates
+ * PageList class. Container of pages that can contain duplicates
  * 
  * @author Neil Daterao
  * @version 3/09/2024
@@ -10,29 +10,29 @@ public class PageList {
     
     private LinkedList<Integer> contents; 
 
+    /**
+     * Default constructor, creates empty pageList
+     */
     public PageList() { 
         contents = new LinkedList<>(); 
     }
 
     /**
-     * 
      * @param pageNumber to add to pagelist
-     * Will do nothing if page already exists in page list.
      */
     public void addPage(int pageNumber) { 
-        if (!containsPage(pageNumber)) { 
-            contents.insertAtTail(pageNumber); 
-        }
+        contents.insertAtTail(pageNumber); 
     }
 
     /**
      * 
      * @param pageNumber to remove from pagelist
-     * Will do nothing if page is not in pagelist
+     * If pageNumber not in pagelist, will print "Page not in PageList"
      */
     public void removePage(int pageNumber) { 
-        if (containsPage(pageNumber)) { 
-        contents.removeAtIndex(contents.indexOf(pageNumber));
+        try { contents.removeAtIndex(contents.indexOf(pageNumber)); } 
+        catch(IndexOutOfBoundsException e) { 
+            System.out.println("Page not in PageList");
         }
     }
 
@@ -71,7 +71,6 @@ public class PageList {
             addPage(otherList.removeHead());
         }
     }
-    
     
     
     /**

@@ -1,9 +1,10 @@
 package test;
 
-import proj5.LinkedList;
 import org.junit.*;
 import org.junit.rules.Timeout;
 import static org.junit.Assert.*;
+
+import proj5.LinkedList;
 
 /**
  * LinkedList testing class for all methods in class. Tests generic linked list. 
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
 
 public class LL_Tester {
 
-    @Rule // a test will fail if it takes longer than 1/10 of a second to run
+    @Rule
     public Timeout timeout = Timeout.millis(100);
 
     private LinkedList<String> stringLL; 

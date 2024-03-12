@@ -7,7 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.Timeout;
 
-import proj5.*;
+import proj5.BSTNode;
+import proj5.BinarySearchTree;
 
 /** 
  * Testing class for Binary Search Tree Abstract Data Type (ADT)
