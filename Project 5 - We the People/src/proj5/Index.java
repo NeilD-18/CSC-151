@@ -1,22 +1,32 @@
 package proj5;
 
- public class Index {
+
+/**
+ * Index class.
+ * Indexes will only include words such that there are <= 4 occurances of the word
+ * in a file on different pages. Pages breaks should be denoted using "#" within file.
+ * 
+ * 
+ * @author Neil Daterao
+ * @version 3/09/2024 
+ */
+public class Index {
     
     private BinarySearchTree<IndexEntry> contents; 
     private FileReader reader; 
     private int currentPage; 
-    private Dictionary<String> dictionary; 
+    private Dictionary dictionary; 
     
     private final int MINWORDLENGTH = 2;
     private final int MAXPAGESINPAGELIST = 4;
    
 
     /**
-     * Constructor to make an index given a filePath
+     * Constructor to initialize an index given a filePath
      * @param filePath
      */
     public Index(String filePath) { 
-        dictionary = new Dictionary<>();
+        dictionary = new Dictionary();
         contents = new BinarySearchTree<>(); 
         currentPage = 1; 
         reader = new FileReader(filePath);
@@ -24,7 +34,7 @@ package proj5;
     }
 
     /**
-     * Driver code to create index. Will print the to the standard output
+     * Driver code to create index. Will print the to the standard output after being created.
      */
     public void createIndex() { 
         String token; 
@@ -78,7 +88,8 @@ package proj5;
     }
 
     /**
-     * Delete an index entry from an index given a word. Will also print "Deleting {IndexEntry} from index."
+     * Delete an index entry from an index given a word. 
+     * Will also print "Deleting {IndexEntry} from index."
      * @param word 
      */
     public void deleteEntryFromIndex(String word) { 
@@ -90,56 +101,77 @@ package proj5;
     }
 
     /**
-     * Adds a new word to the index with the page number. If a word has an uppercase and lowercase version, will merge into the lowercase version in the index. 
+     * Adds a new word to the index with the page number. 
+     * Handles merge cases so index is formatted properly
+     * with no duplicate words and upper and lowercase versions
+     * of the same words. 
      * @param word
      */
     public void add(String word){
         if (!this.contains(word)) { 
             
-            //If word is uppercase and the lower case word exists in the index already, add the current page to the lowercase pagelist. Essentially, they're merged.
             if (isUpperCase(word)) { 
                 String lowerCaseWord = word.toLowerCase();
                 if (this.contains(lowerCaseWord)){
-                    updateIndex(lowerCaseWord);
+                    handleUpperCaseWordWithLowerCaseInIndex(lowerCaseWord);
                 }
-                else { 
-                    addNewEntry(word);
-                }
-            
+                else {  addNewEntry(word); }
             }
-            else { //If the word is lowercase and the uppercase word exists in the index already, copy the pages from the upper case word to the lower case pagelist, then add the current page
-
+            else { 
                 String upperCaseWord = capitalizeWord(word);
                 if (this.contains(upperCaseWord)) { 
-                    IndexEntry newEntry = new IndexEntry(word);
-                    PageList pageListForUppercaseWord = this.getIndexEntry(upperCaseWord).getPageList(); 
-                    PageList pageListForLowerCaseWord = newEntry.getPageList();
-                    pageListForLowerCaseWord.addPageList(pageListForUppercaseWord);
-                    contents.insert(newEntry);
-                    updateIndex(word); 
+                    handleLowerCaseWordWithUpperCaseInIndex(upperCaseWord, word);
                 }
-                else { 
-                    addNewEntry(word);
-                }
+                else { addNewEntry(word); }
             }
         }
     }
 
     /**
-     * String version of Index. Each IndexEntry printed in ASCII Alphabetical order. Each IndexEntry on new lines. 
+     * String version of Index. Each IndexEntry printed in ASCII Alphabetical order. 
+     * Each IndexEntry on new lines. 
+     * @return String verison of Index. 
      */
     public String toString() { 
         return contents.toStringReverseInOrderTraversal(); 
     }
 
     /**
-     * Private helper method to check if a word is uppercase. An uppercase word is uppercase if the first letter is capitalized.
+     * Private helper method to check if a word is uppercase. 
+     * An uppercase word is uppercase if the first letter is capitalized.
      * @param word
      * @return True if uppercase, false if not 
      */
     private Boolean isUpperCase(String word) { 
         return Character.isUpperCase(word.charAt(0)); 
     }
+
+    /**
+     * Private helper method to handle the case when word is lowercase and 
+     * the uppercase word exists in the index already, copy the pages from 
+     * the upper case word to the lower case pagelist, then add the current page.
+     * @param upperCaseWord
+     * @param word
+     */
+    private void handleLowerCaseWordWithUpperCaseInIndex(String upperCaseWord, String word){
+        IndexEntry newEntry = new IndexEntry(word);
+        PageList pageListForUppercaseWord = this.getIndexEntry(upperCaseWord).getPageList(); 
+        PageList pageListForLowerCaseWord = newEntry.getPageList();
+        pageListForLowerCaseWord.addPageList(pageListForUppercaseWord);
+        contents.insert(newEntry);
+        updateIndex(word); 
+    }
+
+    /**
+     * Private helper method to handle the case wher if 
+     * word is uppercase and the lower case word exists in the index already. 
+     * Add the current page to the lowercase pagelist.
+     * @param lowerCaseWord
+     */
+    private void handleUpperCaseWordWithLowerCaseInIndex(String lowerCaseWord) { 
+        updateIndex(lowerCaseWord);
+    }
+
 
     /**
      * Private helper method to capitalize the first letter of a word

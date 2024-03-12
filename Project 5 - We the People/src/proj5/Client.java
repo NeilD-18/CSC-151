@@ -3,8 +3,8 @@ package proj5;
 /**
  * Driver for the index maker project
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Neil Daterao
+ * @version (3/12/2024
  */
 public class Client
 {

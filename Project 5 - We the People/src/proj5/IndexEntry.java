@@ -1,7 +1,7 @@
 package proj5;
 
 /**
- * Class for Index Entries. An index entry has data and a corresponding page list. 
+ * Class for Index Entries. An index entry has a word and a corresponding page list. 
  * @author Neil Daterao
  * @version 03/09/2024
  */

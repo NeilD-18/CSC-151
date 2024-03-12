@@ -1,7 +1,7 @@
 package proj5;
 
 /**
- * PageList class
+ * PageList class, does not hold duplicates
  * 
  * @author Neil Daterao
  * @version 3/09/2024
@@ -17,17 +17,23 @@ public class PageList {
     /**
      * 
      * @param pageNumber to add to pagelist
+     * Will do nothing if page already exists in page list.
      */
     public void addPage(int pageNumber) { 
-        contents.insertAtTail(pageNumber);
+        if (!containsPage(pageNumber)) { 
+            contents.insertAtTail(pageNumber); 
+        }
     }
 
     /**
      * 
      * @param pageNumber to remove from pagelist
+     * Will do nothing if page is not in pagelist
      */
     public void removePage(int pageNumber) { 
+        if (containsPage(pageNumber)) { 
         contents.removeAtIndex(contents.indexOf(pageNumber));
+        }
     }
 
     /**

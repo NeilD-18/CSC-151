@@ -1,13 +1,13 @@
 package proj5;
 
 /**
- * Generic Dictionary class.
+ * Dictionary Class for Strings, doesn't allow for duplicates
  * @author Neil Daterao
  * @version 3/09/2024 
  */
-public class Dictionary<Element extends Comparable<Element>> {
+public class Dictionary {
    
-    private BinarySearchTree<Element> contents; 
+    private BinarySearchTree<String> contents; 
     
     /**
      * Constructs an empty dictionary.
@@ -20,25 +20,25 @@ public class Dictionary<Element extends Comparable<Element>> {
      * Adds a word to the dictionary. If dictionary already has word, nothing will happen.
      * @param word the word to be added to the dictionary
      */
-    public void add(Element element) {
-        contents.insert(element);
+    public void add(String word) {
+        contents.insert(word);
     }
 
     /**
      * Checks if a word is present in the dictionary.
-     * @param element to be added
-     * @return true if the element is present in the dictionary, false otherwise
+     * @param String to be added
+     * @return true if the String is present in the dictionary, false otherwise
      */
-    public boolean contains(Element element) {
-       return contents.search(element);
+    public boolean contains(String word) {
+       return contents.search(word);
     }
 
     /**
-     * Removes a word from the dictionary. If element is not there, do nothing. 
-     * @param word the element to be removed from the dictionary
+     * Removes a word from the dictionary. If String is not there, do nothing. 
+     * @param word the String to be removed from the dictionary
      */
-    public void remove(Element element) {
-        contents.delete(element);
+    public void remove(String word) {
+        contents.delete(word);
     }
 
     /**
